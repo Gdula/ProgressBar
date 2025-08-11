@@ -29,7 +29,12 @@ function wpb_render_progress_bar() {
     }
 
     $threshold = wpb_free_shipping_threshold();
-    $cart_total = (float) WC()->cart->get_displayed_subtotal();
+    $cart_total = (float) WC()->cart->get_cart_contents_total();
+
+    if ($cart_total <= 0) {
+        $cart_total = (float) WC()->cart->subtotal;
+    }
+
     $progress = $threshold > 0 ? min(100, ($cart_total / $threshold) * 100) : 0;
     $remaining = max(0, $threshold - $cart_total);
 
@@ -42,8 +47,6 @@ function wpb_render_progress_bar() {
         . '</div>'
         . '<p class="wpb-progress-message">' . esc_html($message) . '</p>';
 }
-add_action('woocommerce_before_cart', 'wpb_render_progress_bar');
-add_action('woocommerce_before_checkout_form', 'wpb_render_progress_bar', 5);
 
 /**
  * Enqueue styles for the progress bar.
@@ -56,6 +59,17 @@ function wpb_enqueue_assets() {
         '1.0.0'
     );
 }
-add_action('wp_enqueue_scripts', 'wpb_enqueue_assets');
+
+/**
+ * Register hooks once WooCommerce is loaded.
+ */
+function wpb_init() {
+    if (class_exists('WooCommerce')) {
+        add_action('woocommerce_before_cart', 'wpb_render_progress_bar');
+        add_action('woocommerce_before_checkout_form', 'wpb_render_progress_bar', 5);
+        add_action('wp_enqueue_scripts', 'wpb_enqueue_assets');
+    }
+}
+add_action('plugins_loaded', 'wpb_init');
 
 ?>
