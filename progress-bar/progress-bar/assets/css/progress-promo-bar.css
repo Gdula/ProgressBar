@@ -1,0 +1,52 @@
+/* Progress Promo Bar – front‑end styles */
+.progress-promo-bar {
+    margin: 20px 0;
+    padding: 10px;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+.progress-promo-bar__message {
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 14px;
+}
+.progress-promo-bar__outer {
+    position: relative;
+    height: 8px;
+    background-color: #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.progress-promo-bar__inner {
+    height: 100%;
+    background-color: #21759b;
+    transition: width 0.3s ease;
+}
+
+/* Admin styling for the promo bar settings page */
+#progress-promo-bar-rules {
+    margin-top: 20px;
+}
+#progress-promo-bar-rules th,
+#progress-promo-bar-rules td {
+    vertical-align: middle;
+    padding: 8px 4px;
+}
+#progress-promo-bar-rules input[type="text"],
+#progress-promo-bar-rules input[type="number"],
+#progress-promo-bar-rules select {
+    width: 100%;
+    max-width: 150px;
+}
+#progress-promo-bar-rules input[type="checkbox"] {
+    transform: scale(1.2);
+    margin-right: 4px;
+}
+.progress-promo-bar-rule .button-link.delete-rule {
+    color: #b32d2e;
+    text-decoration: none;
+}
+.progress-promo-bar-rule .button-link.delete-rule:hover {
+    text-decoration: underline;
+}
